@@ -2,7 +2,8 @@ import React from "react";
 import {
 StyleSheet,
 Text,
-View
+View,
+Image
 } from "react-native";
 
 
@@ -16,6 +17,7 @@ export default class ExemploGetJSON extends React.Component {
       this.state = {
         first_name: '',
         last_name: '',
+        image_source: '',
       };
   }
 
@@ -31,9 +33,10 @@ export default class ExemploGetJSON extends React.Component {
 
       var first_name = responseJson['data']['first_name']
       var last_name = responseJson['data']['last_name']
+      var image_source = responseJson['data']['avatar']
 
       this.setState({first_name: first_name,
-                  last_name: last_name,})
+                  last_name: last_name,image_source: image_source})
 
     })
     .catch(error=>console.log(error))
@@ -47,6 +50,10 @@ render(){
     <View style={styles.loader}> 
       <Text>{this.state.first_name}</Text>
       <Text>{this.state.last_name}</Text>
+      <Image
+        style={styles.tinyLogo}
+        source={this.state.image_source}
+      />
     </View>
 )
 }
@@ -58,5 +65,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff"
-   }
+   },
+   tinyLogo: {
+    width: 100,
+    height: 100,
+  },
 });
